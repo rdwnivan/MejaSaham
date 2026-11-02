@@ -1,0 +1,7 @@
+# Akhir baris teks: LF di dalam repo DAN di working tree.
+# Tanpa `eol=lf`, `core.autocrlf` di Windows menulis ulang berkas menjadi CRLF saat
+# checkout, sehingga berkas berubah tanpa ada yang mengeditnya.
+* text=auto eol=lf
+*.docx binary
+# Skrip batch Windows wajib CRLF: cmd.exe salah membaca blok `( ... )` pada berkas ber-LF.
+*.cmd text eol=crlf

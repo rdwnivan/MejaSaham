@@ -1,0 +1,38 @@
+kode;tanggal;jenis;rasio_lama;rasio_baru;harga_tebus;dividen_per_saham;tenggat;keterangan
+# =========================================================================================
+# TEMPLATE AKSI KORPORASI — Meja Saham
+# =========================================================================================
+#
+# Aksi korporasi dipakai untuk penyesuaian harga historis (split/reverse split/right issue)
+# dan untuk arus kas posisi (dividen). Tanpa ini momentum dan backtest salah (PRD 7.1).
+#
+# Salin ke: %LOCALAPPDATA%\MejaSaham\konfigurasi\aksi-korporasi.csv
+#
+# ARTI KOLOM
+#   kode                Kode emiten TANPA akhiran .JK
+#   tanggal             YYYY-MM-DD (tanggal ex-date bila ada)
+#   jenis               split | reverse_split | right_issue | dividen
+#   rasio_lama          Lihat konvensi di bawah. WAJIB untuk split/reverse_split.
+#   rasio_baru          WAJIB untuk split/reverse_split.
+#   harga_tebus         WAJIB untuk right_issue.
+#   dividen_per_saham   WAJIB untuk dividen. Rupiah per lembar.
+#   tenggat             HANYA untuk right_issue: batas akhir pelaksanaannya (mis. batas akhir
+#                       penebusan HMETD), YYYY-MM-DD. Kosongkan bila pengumumannya belum
+#                       menyebutkannya — kosong berarti "belum dinyatakan", bukan "tidak ada".
+#   keterangan          Bebas.
+#
+# KONVENSI RASIO (harga disesuaikan x (rasio_lama / rasio_baru))
+#   split 1:2          -> rasio_lama = 1, rasio_baru = 2   (1 lembar lama menjadi 2 lembar)
+#   reverse split 2:1  -> rasio_lama = 2, rasio_baru = 1
+#   right issue        -> rasio_lama / rasio_baru = jumlah saham lama : saham baru
+#
+# PENTING SOAL DIVIDEN (U4): dividen TIDAK menyesuaikan harga historis. Ia dicatat sebagai
+# arus kas posisi dan dasar imbal hasil dividen. Karena itu kolom rasio boleh kosong.
+#
+# PENTING SOAL RIGHT ISSUE (PRD 9.11): right issue tidak menyesuaikan harga historis, tetapi ia
+# memunculkan TINDAKAN MENUNGGU di dasbor — keputusan tebus / jual HMETD / abaikan dicatat lewat
+# `--putuskan-right-issue`. Kalau `tenggat` kosong, dasbor tetap menyebutnya "belum dinyatakan".
+# =========================================================================================
+<<CONTOH>>;2026-01-02;split;1;2;;;;contoh pemecahan saham
+<<CONTOH>>;2026-03-30;dividen;;;;281;;contoh dividen tunai
+<<CONTOH>>;2026-09-15;right_issue;5;2;1000;;2026-09-29;contoh right issue 5:2, tebus Rp 1.000

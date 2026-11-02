@@ -1,0 +1,8 @@
+# Dependensi pengembangan — TIDAK boleh masuk ke bundel aplikasi.
+-r requirements.txt
+
+# Seluruh versi, termasuk ketiga alat di bawah, dipin oleh constraint requirements.lock.txt
+# yang diwarisi lewat requirements.txt.
+pytest
+python-docx   # hanya untuk tools/extract_docx.py (jejak asal + ekstraksi PRD)
+setuptools   # alat instalasi; versi lama memiliki celah jalur wheel di Windows

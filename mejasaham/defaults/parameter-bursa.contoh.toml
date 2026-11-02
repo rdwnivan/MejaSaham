@@ -1,0 +1,178 @@
+# =============================================================================
+# Meja Saham — TEMPLATE parameter bursa
+# =============================================================================
+# Berkas ini TEMPLATE, bukan konfigurasi aktif.
+#   - Salinan aktif saat aplikasi jalan: %LOCALAPPDATA%\MejaSaham\konfigurasi\
+#     (dibuat otomatis dari template ini saat pertama dipakai)
+#   - Cara pakai: buka komentar pada entri yang SUDAH diverifikasi dari pengumuman
+#     resmi, isi nilainya, lalu muat:  python -m mejasaham --muat-konfigurasi
+#
+# ATURAN PENGISIAN (mengikat — lihat AGENTS.md dan docs/konfigurasi.md)
+#   1. Entri hanya ditulis bila SUDAH diverifikasi. Belum terverifikasi = entri
+#      TIDAK DITULIS (bukan diisi 0, bukan diisi angka perkiraan).
+#      TOML tidak punya tipe null, jadi "tidak ada entri" adalah satu-satunya cara
+#      menyatakan belum terverifikasi.
+#   2. Setiap entri WAJIB memuat `berlaku_sejak`, `dicatat_pada`, dan `sumber`.
+#      Entri tanpa salah satunya ditolak saat dimuat, dengan menyebut entri mana.
+#   3. `aktif = false` berarti "sengaja dinonaktifkan" — berbeda dari "belum
+#      terverifikasi". Jangan hapus entri yang dinonaktifkan; matikan saja.
+#   4. Nilai lama JANGAN ditimpa saat aturan bursa berubah: tambahkan entri baru dengan
+#      `berlaku_sejak` yang lebih baru. Daftar entri bersifat append-only per parameter.
+#      Memperbaiki entri yang sudah dimuat juga menambah baris, bukan mengubahnya:
+#      pakai `dicatat_pada` yang lebih baru. Mengubah isi entri tanpa mengubah
+#      `dicatat_pada` ditolak (isi berbeda pada identitas yang sama).
+#   5. `sumber` diisi dengan nama pengumuman + tautan + tanggal akses, mis.
+#      "Pengumuman IDX No. XXX tanggal 1 Sep 2026 (https://www.idx.co.id/..., diakses 6 Okt 2026)"
+#   6. Salah ketik ditolak, bukan diabaikan: kunci yang tidak dikenal, tipe yang salah,
+#      persen di luar 0–100, dan rentang harga yang berlubang/tumpang tindih semuanya
+#      menghentikan pemuatan. Berkas salah baca lebih berbahaya daripada berkas menolak.
+#   7. Angka ditulis TANPA tanda kutip. `persen` ditulis sebagai persen (0.15 berarti
+#      0,15%) dan disimpan sebagai basis poin; rupiah/lembar ditulis bilangan bulat.
+#   8. Kalender bursa TIDAK ada di berkas ini: ia data (tabel `kalender_bursa`), bukan
+#      parameter, dan diimpor lewat jalur impor berkas.
+#
+# Placeholder ditulis dengan tanda <...> supaya tidak ada angka yang bisa tersalin
+# dan disalahartikan sebagai nilai resmi.
+# =============================================================================
+
+skema = 1
+
+
+# -----------------------------------------------------------------------------
+# B1 — Jumlah lembar per lot                          (docs/konfigurasi.md B1)
+# Verifikasi: pengumuman resmi IDX.
+# -----------------------------------------------------------------------------
+# [[lot]]
+# nilai_lembar  = <jumlah lembar per lot>
+# berlaku_sejak = <YYYY-MM-DD>
+# sumber        = "<pengumuman resmi + tautan + tanggal akses>"
+# dicatat_pada  = <YYYY-MM-DD>
+
+
+# -----------------------------------------------------------------------------
+# B2 — Fraksi harga (tick) per rentang harga          (docs/konfigurasi.md B2)
+# Tick dalam rupiah utuh. `batas_bawah` dan `batas_atas` inklusif.
+# Rentang harus menutup tanpa celah dan tanpa tumpang tindih; hanya rentang TERATAS
+# yang boleh tanpa `batas_atas` (berlaku sampai harga berapa pun).
+# -----------------------------------------------------------------------------
+# [[fraksi_harga]]
+# berlaku_sejak = <YYYY-MM-DD>
+# sumber        = "<pengumuman resmi + tautan + tanggal akses>"
+# dicatat_pada  = <YYYY-MM-DD>
+# rentang = [
+#   { batas_bawah = <rupiah>, batas_atas = <rupiah>, tick = <rupiah> },
+#   { batas_bawah = <rupiah>, tick = <rupiah> },
+# ]
+
+
+# -----------------------------------------------------------------------------
+# B3 — Papan pemantauan khusus / full call auction    (docs/konfigurasi.md B3)
+# Aturan ini pernah berubah beberapa kali dan pengumuman IDX menolak akses otomatis,
+# jadi verifikasi wajib manual. Isi `uraian` secukupnya sampai bentuk terstrukturnya
+# jelas; selama hanya ada `uraian`, fitur yang bergantung padanya menampilkan
+# peringatan (parameter ini dianggap belum siap dihitung).
+# -----------------------------------------------------------------------------
+# [[papan_pemantauan_khusus]]
+# uraian        = "<ringkasan aturan yang berlaku, apa adanya dari sumber>"
+# berlaku_sejak = <YYYY-MM-DD>
+# sumber        = "<pengumuman resmi + tautan + tanggal akses>"
+# dicatat_pada  = <YYYY-MM-DD>
+
+
+# -----------------------------------------------------------------------------
+# B4 — Batas auto rejection (ARA / ARB)               (docs/konfigurasi.md B4)
+# Persen terhadap harga acuan, per kelompok harga. Isi `kelompok` sesuai penamaan
+# resmi (mis. berdasarkan rentang harga atau status papan pemantauan khusus).
+# Aturan rentang sama dengan B2: menutup tanpa celah, hanya rentang teratas tanpa
+# `batas_atas`.
+# -----------------------------------------------------------------------------
+# [[auto_rejection]]
+# kelompok      = "<nama kelompok menurut aturan resmi>"
+# berlaku_sejak = <YYYY-MM-DD>
+# sumber        = "<pengumuman resmi + tautan + tanggal akses>"
+# dicatat_pada  = <YYYY-MM-DD>
+# rentang = [
+#   { batas_bawah = <rupiah>, batas_atas = <rupiah>, ara_persen = <persen>, arb_persen = <persen> },
+# ]
+
+
+# -----------------------------------------------------------------------------
+# B5 — Siklus settlement                              (docs/konfigurasi.md B5)
+# -----------------------------------------------------------------------------
+# [[settlement]]
+# hari_kerja    = <jumlah hari kerja>
+# berlaku_sejak = <YYYY-MM-DD>
+# sumber        = "<pengumuman resmi + tautan + tanggal akses>"
+# dicatat_pada  = <YYYY-MM-DD>
+
+
+# -----------------------------------------------------------------------------
+# B6/B7 — Biaya broker (sisi beli & sisi jual)        (docs/konfigurasi.md B6, B7)
+# Satu entri per broker; `nama` adalah nama broker itu. Isi hanya yang benar-benar
+# berlaku di broker Anda.
+#
+# `minimum` dalam rupiah, dan boleh TIDAK DITULIS (K22). Tidak ditulis berarti
+# "sumber tidak menyatakan tarif minimumnya" dan tersimpan sebagai NULL — itu
+# BUKAN nol. Nol berarti "tidak ada tarif minimum", dan itu pernyataan tentang
+# bursa yang hanya boleh ditulis bila sumbernya memang menyatakannya.
+#
+# `sudah_termasuk` (K23) menyebut komponen yang dinyatakan sumber SUDAH tercakup
+# di dalam tarifnya. Hanya tiga nilai yang sah:
+#     "levy"          biaya bursa/kliring/kustodian (BEI, KPEI, KSEI)
+#     "ppn"           PPN atas biaya broker
+#     "pph_penjualan" PPh final penjualan saham
+# Bila sumber menyatakan tarifnya "all in", daftar ini WAJIB diisi: tanpa penanda
+# itu, kalkulator biaya menambahkan B8 (PPh final) di atas tarif yang sudah
+# memuatnya — salah dua kali, dan tidak terlihat di keluaran mana pun.
+# -----------------------------------------------------------------------------
+# [[biaya_broker]]
+# nama           = "<nama broker>"
+# sisi_beli      = { persen = <persen> }
+# sisi_jual      = { persen = <persen> }
+# sudah_termasuk = ["levy", "ppn", "pph_penjualan"]
+# berlaku_sejak  = <YYYY-MM-DD>
+# sumber         = "<dokumen tarif broker + tanggal akses>"
+# dicatat_pada   = <YYYY-MM-DD>
+
+
+# -----------------------------------------------------------------------------
+# B8 — PPh final penjualan saham                      (docs/konfigurasi.md B8)
+# Verifikasi ke DJP/broker dengan tanggal berlaku. Angka yang "umum dikenal" TIDAK
+# boleh dipakai tanpa konfirmasi.
+# -----------------------------------------------------------------------------
+# [[pajak_penjualan]]
+# persen        = <persen dari nilai jual>
+# dasar         = "<nilai jual / nilai transaksi bruto / lainnya menurut aturan>"
+# berlaku_sejak = <YYYY-MM-DD>
+# sumber        = "<dasar hukum + tautan + tanggal akses>"
+# dicatat_pada  = <YYYY-MM-DD>
+
+
+# -----------------------------------------------------------------------------
+# B9 — Slippage                                       (docs/konfigurasi.md B9)
+# Slippage BUKAN parameter bursa melainkan keputusan produk (K20: satu tick,
+# memakai tabel fraksi harga B2). Karena itu `sumber` di sini berisi keputusan
+# produk beserta tanggalnya, bukan pengumuman bursa.
+# `mode = "tick"` memakai tabel B2; `mode = "persen"` memakai persen tetap.
+# Bila sumber yang dipakai tidak menyatakan tanggal berlakunya, `berlaku_sejak`
+# boleh diisi tanggal pengamatan ASALKAN disertai
+# `asal_berlaku_sejak = "tanggal_pengamatan"` (K22) — tanpa penanda itu,
+# "tanggal berlaku tidak diketahui" akan terbaca sebagai "berlaku sejak".
+# -----------------------------------------------------------------------------
+# [[slippage]]
+# mode               = "tick"        # "tick" atau "persen"
+# nilai              = <jumlah tick atau persen sesuai mode>
+# berlaku_sejak      = <YYYY-MM-DD>
+# asal_berlaku_sejak = "sumber"      # atau "tanggal_pengamatan"
+# sumber             = "<dasar penetapan + tanggal akses>"
+# dicatat_pada       = <YYYY-MM-DD>
+
+
+# -----------------------------------------------------------------------------
+# B10 — Imbal hasil SUN 10 tahun: TIDAK ADA DI BERKAS INI
+# -----------------------------------------------------------------------------
+# Imbal hasil SUN adalah DATA, bukan parameter aturan: ia deret bertanggal (tanggal,
+# tenor, nilai, sumber) yang diperbarui berkala, dan sudah punya tabelnya sendiri —
+# `imbal_hasil_sun` (lihat docs/skema-data.md) lewat jalur impor berkas.
+# Menaruhnya di dua tempat membuat pertanyaan "nilai mana yang dipakai berhitung?"
+# tidak bisa dijawab. Satu fakta, satu sumber.

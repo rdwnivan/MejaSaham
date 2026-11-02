@@ -1,0 +1,26 @@
+kode;jenis;tanggal_mulai;tanggal_selesai;keterangan
+# =========================================================================================
+# TEMPLATE NOTASI KHUSUS / SUSPENSI / PAPAN PEMANTAUAN — Meja Saham
+# =========================================================================================
+#
+# PRD 7.3: emiten tanpa data suspensi/UMA yang terbaru diberi penanda "status belum
+# terverifikasi" dan TIDAK dijadikan kandidat otomatis. Jadi berkas ini bukan pelengkap —
+# tanpa isinya, kandidat otomatis memang tidak boleh muncul.
+#
+# Salin ke: %LOCALAPPDATA%\MejaSaham\konfigurasi\notasi-khusus.csv
+# Sumber: halaman resmi IDX (suspensi & UMA harian; notasi khusus & papan pemantauan mingguan).
+# Frekuensi pembaruan menurut PRD 7.1: harian untuk suspensi/UMA, mingguan untuk notasi.
+#
+# ARTI KOLOM
+#   kode              Kode emiten TANPA akhiran .JK
+#   jenis             suspensi | uma | papan_pemantauan | notasi_lainnya
+#   tanggal_mulai     YYYY-MM-DD
+#   tanggal_selesai   YYYY-MM-DD, atau KOSONG bila masih berjalan
+#   keterangan        Apa adanya dari pengumuman.
+#
+# ATURAN
+#   * Satu emiten boleh punya banyak baris (riwayat). Notasi yang berakhir diisi
+#     tanggal_selesainya dengan baris BARU, bukan dengan menimpa baris lama.
+# =========================================================================================
+<<CONTOH>>;uma;2026-01-05;;contoh: masih berjalan
+<<CONTOH>>;suspensi;2025-11-10;2025-11-12;contoh: sudah berakhir

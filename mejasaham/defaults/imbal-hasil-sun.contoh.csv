@@ -1,0 +1,28 @@
+tanggal;tenor_tahun;imbal_hasil_persen;sumber
+# =========================================================================================
+# TEMPLATE IMBAL HASIL SUN — Meja Saham
+# =========================================================================================
+#
+# Dipakai sebagai pembanding uji "imbal hasil laba" (PRD 8.2) dan saringan valuasi.
+#
+# PENTING: imbal hasil SUN adalah DATA, bukan parameter aturan (lihat docs/konfigurasi.md
+# catatan B10). Karena itu tempatnya di sini — deret bertanggal — dan bukan di berkas
+# parameter bursa TOML. Satu fakta, satu sumber.
+#
+# Salin ke: %LOCALAPPDATA%\MejaSaham\konfigurasi\imbal-hasil-sun.csv
+# Sumber: kurva imbal hasil SBN dari halaman HPW PHEI — ambil otomatis dengan
+#         `python -m mejasaham --ambil-sun` (K16), atau isi sendiri dari publikasi resmi lain
+#         (Bank Indonesia / DJPPR). Perintah itu MENAMBAH baris, tidak menimpa berkas ini,
+#         jadi riwayat yang Anda isi sendiri tetap aman.
+#
+# ARTI KOLOM
+#   tanggal             YYYY-MM-DD (tanggal publikasi/nilai berlaku)
+#   tenor_tahun         Tenor dalam tahun, mis. 10 untuk SUN 10 tahun (yang dipakai PRD 8.2)
+#   imbal_hasil_persen  Persen dengan TITIK desimal, mis. 7.1845 untuk 7,1845%
+#   sumber              Dari mana angka ini diambil + tanggal akses
+#
+# ATURAN
+#   * Angka tidak boleh dikarang. Selama berkas ini kosong, metrik yang membandingkan imbal
+#     hasil laba dengan SUN berstatus "tidak dihitung" (PRD 7.2) — bukan memakai 0.
+# =========================================================================================
+<<CONTOH>>;10;6.75;GANTI dengan publikasi resmi (diakses <tanggal>)

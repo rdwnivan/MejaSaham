@@ -1,0 +1,56 @@
+# Lingkungan Python
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Temp kerja (mis. TMP/TEMP pip saat sandbox hanya mengizinkan tulis di repo)
+.tmp/
+
+# Sisa folder sementara pytest: dipakai pytest HANYA bila folder temp sistem tidak bisa
+# ditulis (mis. sesi agen yang terkunci di dalam repo). Isinya berkas uji, bukan hasil kerja.
+pytest-of-*/
+
+# Sisa build PyInstaller lama (dihapus K91); tetap diabaikan bila masih ada di mesin
+build/
+dist/
+*.spec
+
+# Turunan yang dihasilkan ulang: python tools/extract_docx.py <docx> _extract/prd_v1.3.txt
+_extract/
+
+# Konfigurasi aktif (berisi tarif broker & data pribadi) — template tetap ikut versi
+konfigurasi/**
+!konfigurasi/**/
+!konfigurasi/*.contoh.toml
+!konfigurasi/*.contoh.csv
+
+# Kredensial lokal; contoh kosong tetap boleh masuk versi
+.env
+.env.*
+!.env.example
+!.env.contoh
+*.pem
+*.key
+*.p12
+*.pfx
+*.keystore
+
+# Pengaturan mesin/peluncur pribadi
+.claude/
+
+# Cadangan lokal & basis data bila ada yang tidak sengaja ditaruh di repo
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+cadangan/
+
+# Folder data uji manual: dibuat oleh `--folder-data .uji-data` saat mencoba alur ingesti.
+# Isinya data pasar nyata yang tidak boleh ikut ke repositori.
+.uji-data/

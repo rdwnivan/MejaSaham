@@ -1,0 +1,69 @@
+kode;nama;sektor_idx_ic;sektor_sumber;jenis;papan;status_notasi;tanggal_notasi;jumlah_saham;free_float_persen;sumber;dicatat_pada
+# =========================================================================================
+# TEMPLATE DAFTAR EMITEN — Meja Saham
+# =========================================================================================
+#
+# BERKAS INI SENGAJA TIDAK MEMUAT SATU PUN KODE EMITEN YANG SEBENARNYA.
+#
+# Alasannya sama dengan alasan template parameter bursa dikosongkan (aturan keras 1 di
+# AGENTS.md): semesta saham adalah keputusan pengguna. Daftar emiten yang dikarang aplikasi
+# akan menjadi data bursa yang tidak bisa dipertanggungjawabkan. Isi berkas ini dari daftar
+# resmi IDX (idx.co.id -> Perusahaan Tercatat), lalu catat tanggal aksesnya di kolom `sumber`.
+#
+# -----------------------------------------------------------------------------------------
+# CARA PAKAI
+# -----------------------------------------------------------------------------------------
+# 1. Salin berkas ini ke:  %LOCALAPPDATA%\MejaSaham\konfigurasi\emiten.csv
+#    (--refresh membaca daftar emiten dari folder konfigurasi itu)
+# 2. Ganti baris contoh di bawah (yang berawalan  <<CONTOH>>) dengan baris emiten Anda,
+#    satu baris per emiten.
+# 3. Jalankan:  python -m mejasaham --refresh
+#
+# -----------------------------------------------------------------------------------------
+# ATURAN PENGISIAN
+# -----------------------------------------------------------------------------------------
+# * Pemisah kolom: TITIK KOMA (;) supaya tidak bentrok dengan koma desimal Excel Indonesia.
+# * Baris pertama WAJIB baris nama kolom, persis seperti di atas.
+# * Semua baris yang dimulai dengan tanda # DIABAIKAN, jadi penjelasan ini boleh dibiarkan.
+#   Penanda <<CONTOH>> juga diabaikan — baris contoh TIDAK ikut terimpor.
+# * Nama kolom yang salah ketik DITOLAK, bukan diabaikan: kolom yang tidak dikenal akan
+#   dianggap kosong, dan itu berbahaya.
+# * Nilai kosong berarti "belum ada datanya", BUKAN nol. Aplikasi akan melaporkannya sebagai
+#   lubang di laporan mutu, bukan mengisinya dengan angka tebakan.
+# * Simpan sebagai CSV UTF-8 (Excel: "CSV UTF-8 (Comma delimited)" — pemisahnya tetap
+#   diganti menjadi titik koma).
+#
+# -----------------------------------------------------------------------------------------
+# ARTI TIAP KOLOM
+# -----------------------------------------------------------------------------------------
+# kode               Kode emiten di IDX, TANPA akhiran .JK. Aplikasi yang menambahkan .JK.
+# nama               Nama emiten apa adanya dari daftar resmi.
+# sektor_idx_ic      Kode/nama sektor IDX-IC. Boleh kosong bila belum tersedia.
+# sektor_sumber      Sektor MENURUT SUMBER DATA (mis. Financials, Energy, Basic Materials) —
+#                    kolom yang BERBEDA dari sektor_idx_ic, bukan penggantinya. Dipakai batas
+#                    bobot per sektor (PRD 9.7) selama sektor_idx_ic belum terisi; begitu
+#                    sektor_idx_ic diisi, kolom itulah yang dipakai (K25). Kosongkan bila
+#                    sumber Anda tidak menyatakannya.
+# jenis              Salah satu dari:
+#                      bank_keuangan       bank & lembaga keuangan (set metrik bank, PRD 8.4)
+#                      siklikal_komoditas  batubara, logam, CPO, migas (PER normalisasi)
+#                      umum                set metrik standar
+#                    Boleh dikosongkan; kosong berarti "belum diklasifikasi", bukan "umum".
+# papan              Papan pencatatan (utama / pengembangan / ekonomi baru / pemantauan khusus).
+# status_notasi      Status notasi apa adanya. Boleh kosong.
+# tanggal_notasi     Tanggal pencatatan saham (listing date) menurut sumber Anda, bentuk
+#                    YYYY-MM-DD — mis. dari kolom "Listing Date" Master File Efek KSEI.
+#                    Boleh kosong bila sumbernya tidak menyatakan; JANGAN diisi tanggal
+#                    tebakan (aturan keras 1). Nama kolomnya mengikuti PRD 12 tabel 23.
+# jumlah_saham       Jumlah saham beredar (bilangan bulat, tanpa titik pemisah ribuan).
+# free_float_persen  Free float dalam persen, mis. 38.5 untuk 38,5%.
+# sumber             WAJIB. Dari mana baris ini diambil + tanggal akses, mis.
+#                    "Daftar Perusahaan Tercatat IDX (diakses 9 Okt 2026)".
+# dicatat_pada       WAJIB. Tanggal Anda mencatat baris ini, bentuk YYYY-MM-DD.
+#                    Memperbaiki data = menambah baris baru dengan tanggal lebih baru;
+#                    baris lama tidak dihapus (PRD 7.2, append-only).
+#
+# -----------------------------------------------------------------------------------------
+# BARIS CONTOH — ganti dengan data Anda (baris ini diabaikan selama ada <<CONTOH>>)
+# -----------------------------------------------------------------------------------------
+<<CONTOH>>;Nama Emiten Contoh;sektor-contoh;;umum;utama;;;0;0.0;GANTI dengan sumber resmi Anda (diakses <tanggal>);2026-01-01

@@ -1,0 +1,32 @@
+kode;periode;tgl_publikasi;npl_kotor_persen;car_persen;bopo_persen;nim_persen;keterangan;sumber
+# =========================================================================================
+# TEMPLATE RASIO BANK — Meja Saham
+# =========================================================================================
+#
+# Dipakai HANYA untuk bank & lembaga keuangan (PRD 8.4, Q6): set metrik bank memakai NPL kotor,
+# CAR, BOPO, dan NIM. Rasio ini diterbitkan terpisah dari laporan keuangan (publikasi bulanan
+# bank / OJK), dan itulah alasan tempatnya berkas sendiri — bukan menumpang di fundamental.csv.
+#
+# Salin ke: %LOCALAPPDATA%\MejaSaham\konfigurasi\rasio-bank.csv
+# Jalankan: python -m mejasaham --impor "%LOCALAPPDATA%\MejaSaham\konfigurasi"
+#
+# ARTI KOLOM
+#   kode              Kode emiten tanpa akhiran .JK
+#   periode           Akhir periode rasio, YYYY-MM-DD (mis. 2026-06-30)
+#   tgl_publikasi     Tanggal rasio itu dipublikasikan — dipakai sejak tanggal itu (AC-15)
+#   npl_kotor_persen  NPL kotor, persen (mis. 2.35 untuk 2,35%). Ambang awal PRD: <= 3%
+#   car_persen        Capital Adequacy Ratio, persen. Ambang awal PRD: >= 14%
+#   bopo_persen       Beban Operasional / Pendapatan Operasional, persen. Ambang awal: <= 85%
+#   nim_persen        Net Interest Margin, persen. Ambang awal: >= 3,5%
+#   keterangan        Catatan bebas (mis. konsolidasi vs bank only)
+#   sumber            Dari mana angka ini diambil + tanggal akses
+#
+# ATURAN
+#   * Isi minimal satu rasio. Baris yang seluruh rasionya kosong DITOLAK — ia tidak menambah
+#     apa pun dan hanya menutupi data lama sebagai baris "terkini".
+#   * Rasio yang kosong berarti "tidak dilaporkan", bukan nol: metriknya "tidak dihitung" dan
+#     bobotnya dialihkan (AC-3).
+#   * Ambang di atas adalah nilai awal PRD 8.4 yang disimpan di preset, bukan kebenaran pasar;
+#     mengubahnya berarti versi preset baru.
+# =========================================================================================
+<<CONTOH>>;2026-06-30;2026-07-25;2.35;24.10;62.40;5.10;bank only (contoh);GANTI dengan publikasi resmi (diakses <tanggal>)

@@ -1,0 +1,46 @@
+kode;nama;sektor_idx_ic;sektor_sumber;jenis;papan;status_notasi;tanggal_notasi;jumlah_saham;free_float_persen;sumber;dicatat_pada
+# =========================================================================================
+# DAFTAR EMITEN AWAL (BOOTSTRAP) — bukan daftar resmi, ganti dengan daftar IDX Anda
+# =========================================================================================
+#
+# BERKAS INI BUKAN SUMBER RESMI DAN TIDAK LENGKAP.
+#
+# Isinya sengaja hanya kode emiten besar yang umum dikenal + namanya, supaya --refresh bisa
+# dicoba jalan hari ini. Semua kolom lain (sektor, jenis, papan, tanggal pencatatan, jumlah
+# saham, free float) DIBIARKAN KOSONG dengan sengaja: mengisinya berarti mengarang data bursa,
+# yang dilarang aturan keras 1 di AGENTS.md. Metrik yang bergantung pada kolom kosong akan
+# berstatus "tidak dihitung" (PRD 7.2), bukan diisi angka tebakan.
+#
+# YANG HARUS ANDA LAKUKAN SEBELUM MEMAKAI DATA INI UNTUK KEPUTUSAN NYATA:
+#   1. Unduh "Daftar Perusahaan Tercatat" dari idx.co.id (halaman Perusahaan Tercatat).
+#   2. Ganti seluruh baris di bawah dengan daftar itu (~900+ emiten), lengkapi kolomnya.
+#   3. Ubah kolom `sumber` menjadi rujukan resmi + tanggal akses Anda.
+#
+# Selama langkah 1-3 belum dikerjakan, aplikasi ini hanya melihat ~20 emiten dan laporan mutu
+# akan menyebut keterbatasan itu. Itu disengaja: lebih baik terlihat terbatas daripada
+# tampak lengkap padahal tidak.
+#
+# Cara pakai: salin berkas ini ke %LOCALAPPDATA%\MejaSaham\konfigurasi\emiten.csv
+# Aturan format: lihat mejasaham/defaults/emiten.contoh.csv
+# -----------------------------------------------------------------------------------------
+BBCA;Bank Central Asia;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+BBRI;Bank Rakyat Indonesia;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+BMRI;Bank Mandiri;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+BBNI;Bank Negara Indonesia;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+BBTN;Bank Tabungan Negara;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+TLKM;Telkom Indonesia;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+ASII;Astra International;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+UNTR;United Tractors;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+ICBP;Indofood CBP Sukses Makmur;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+INDF;Indofood Sukses Makmur;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+UNVR;Unilever Indonesia;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+KLBF;Kalbe Farma;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+SMGR;Semen Indonesia;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+INTP;Indocement Tunggal Prakarsa;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+ANTM;Aneka Tambang;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+PTBA;Bukit Asam;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+ADRO;Alamtri Resources Indonesia;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+ITMG;Indo Tambangraya Megah;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+MDKA;Merdeka Copper Gold;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+TPIA;Chandra Asri Pacific;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09
+BRPT;Barito Pacific;;;;;;;;;Daftar bootstrap tidak resmi (kode besar IDX, belum diverifikasi);2026-10-09

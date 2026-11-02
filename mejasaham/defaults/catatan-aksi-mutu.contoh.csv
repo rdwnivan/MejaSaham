@@ -1,0 +1,7 @@
+kode;tanggal_efektif;instrumen_aksi;ringkasan_bukti;sumber_url;sumber
+# TEMPLATE CATATAN AKSI MUTU — Meja Saham
+# Salin ke folder konfigurasi sebagai catatan-aksi-mutu.csv.
+# Catatan ini hanya memberi konteks laporan mutu; tidak dipakai posisi, penyesuaian harga, atau TERP.
+# Isi satu baris per peristiwa; koreksi dibuat sebagai revisi pada impor berikutnya.
+# Ringkasan bukti wajib menyebut angka beserta satuannya, bila ada.
+<<CONTOH>>;2026-01-01;HMETD untuk OWK;5 saham menerima 102 HMETD;https://example.com/pengumuman;contoh sumber

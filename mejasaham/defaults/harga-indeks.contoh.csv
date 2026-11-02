@@ -1,0 +1,17 @@
+indeks;tanggal;close
+# =========================================================================================
+# TEMPLATE HARGA INDEKS — Meja Saham
+# =========================================================================================
+#
+# Indeks dipakai untuk kekuatan relatif, rezim pasar, dan breadth (PRD 8.2). PRD 7.1 menuntut
+# IHSG sudah ada SEBELUM skor momentum dihitung. Pengambil otomatis mengambil IHSG dan LQ45;
+# berkas ini untuk sumber Anda sendiri.
+#
+# Salin ke: %LOCALAPPDATA%\MejaSaham\konfigurasi\harga-indeks.csv
+#
+# ARTI KOLOM
+#   indeks   Nama indeks yang dipakai di basis data: IHSG, LQ45, IDX80 (huruf besar).
+#   tanggal  YYYY-MM-DD
+#   close    Nilai penutupan indeks (boleh berpecahan; angka aslinya ikut tersimpan).
+# =========================================================================================
+<<CONTOH>>;2026-01-02;7500.123

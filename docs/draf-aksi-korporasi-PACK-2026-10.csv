@@ -1,0 +1,8 @@
+# DRAF — jangan impor sebelum ditinjau
+# Sumber dan alasan: docs/riset-harga-snapshot4-2026-10.md. KSEI No. KSEI-0064/DIR/00126.
+# Rasio 5:102 = 5 saham lama menerima 102 HMETD untuk membeli OWK; harga Rp100 per unit OWK.
+# Tenggat 22 Jan 2026 = tanggal pelaksanaan HMETD menurut jadwal KSEI; 26 Jan adalah distribusi OWK.
+# K90: cakupan v0.1 hanya mutu harga; jangan impor sebagai right_issue posisi.
+# Tunggu rancangan yang memisahkan pencatatan mutu harga dari tindakan posisi sebelum impor.
+kode;tanggal;jenis;rasio_lama;rasio_baru;harga_tebus;dividen_per_saham;tenggat;keterangan
+PACK;2026-01-12;right_issue;5;102;100;;2026-01-22;"HMETD untuk OWK PACK; 5 saham menerima 102 HMETD; 1 HMETD membeli 1 OWK yang berkonversi 1:1; ex-date pasar reguler/negosiasi"

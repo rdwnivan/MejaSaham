@@ -1,0 +1,17 @@
+# Dependensi RUNTIME aplikasi.
+#
+# K91 (28 Okt 2026): PySide6 dan bundel PyInstaller dihapus; antarmukanya dasbor web lokal dengan
+# `http.server` pustaka standar, jadi tidak ada dependensi antarmuka sama sekali.
+#
+# Versi dipin (K3) SETELAH pemasangan pertama yang benar-benar diuji, bukan dikarang di muka.
+# Diuji pada 2026 dengan Python 3.14.7 / Windows: `pip check` bersih, `python -m pytest` lulus,
+# dan `import yfinance` berhasil. Isi lengkap termasuk dependensi turunan ada di
+# requirements.lock.txt (versi terpasang yang diuji, tanpa paket legacy), supaya pemasangan
+# ulang memakai versi yang sama. Termasuk perbaikan certifi 2026.10.19 pada 03 Nov 2026.
+# Gunakan versi transitive teruji juga pada pemasangan biasa (perbaikan keamanan 03 Nov 2026).
+-c requirements.lock.txt
+yfinance==1.7.0
+
+# pyarrow sengaja TIDAK ada di sini (amandemen K3).
+# Sejak K5, SQLite adalah satu-satunya sumber kebenaran dan Parquet hanya turunan
+# ekspor yang belum dibuat. Tambahkan kembali saat ekspor Parquet benar-benar ditulis.

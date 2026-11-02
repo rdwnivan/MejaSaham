@@ -1,0 +1,34 @@
+tanggal;hari_bursa;keterangan;sumber
+# =========================================================================================
+# TEMPLATE KALENDER BURSA — Meja Saham
+# =========================================================================================
+#
+# Kalender bursa menentukan arti "hari bursa" dan "hari bursa terakhir". Tanpa berkas ini,
+# peringatan snapshot basi (AC-8) TIDAK BISA dihitung, dan aplikasi akan mengatakannya apa
+# adanya — bukan menebak dari kalender hari kerja biasa.
+#
+# Salin ke: %LOCALAPPDATA%\MejaSaham\konfigurasi\kalender-bursa.csv
+#
+# Cara mengisi yang tidak perlu mengetik:
+#   python -m mejasaham --ambil-kalender
+# Perintah itu mengambil pengumuman hari libur & cuti bersama dari KSEI (yang menindaklanjuti
+# pengumuman Kalender Libur Bursa IDX), lalu menulis berkas ini lengkap dengan sumbernya.
+#
+# ARTI KOLOM
+#   tanggal      YYYY-MM-DD
+#   hari_bursa   1/ya = hari bursa, 0/tidak = libur bursa
+#   keterangan   Mis. "Libur Idul Fitri", "Cuti bersama", "akhir pekan"
+#   sumber       Boleh kosong. Diisi bila berkas ini memuat baris dari sumber tertentu
+#                (mis. nomor pengumuman KSEI). Kosong = dianggap dari berkas impor ini.
+#
+# ATURAN
+#   * Hari LIBUR juga ditulis (hari_bursa = 0). Itu disengaja: rentang tanggal jadi bisa
+#     ditanyakan utuh, dan "hari bursa terakhir" bisa dicari tanpa menebak.
+#   * Isi seluruh tanggal dalam rentang yang Anda pakai. Tanggal yang tidak ada di berkas ini
+#     tidak dianggap hari bursa.
+#   * Hari bursa dihitung sebagai hari kerja dikurangi daftar libur resmi (K11) — bukan dari
+#     daftar hari bursa, sebab IDX tidak menerbitkannya terbuka. Libur yang ditiadakan
+#     mendadak tidak diketahui cara ini, dan laporan mutu tetap memperingatkannya (U5).
+# =========================================================================================
+<<CONTOH>>;2026-01-01;0;Libur Tahun Baru
+<<CONTOH>>;2026-01-02;1;

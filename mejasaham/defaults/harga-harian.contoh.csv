@@ -1,0 +1,43 @@
+kode;tanggal;open;high;low;close;volume;nilai;penyesuaian_sumber;sumber
+# =========================================================================================
+# TEMPLATE HARGA HARIAN (jalur impor berkas) — Meja Saham
+# =========================================================================================
+#
+# Pakai berkas ini hanya bila Anda TIDAK memakai pengambil otomatis (--refresh), atau bila
+# Anda sudah punya sumber harga resmi/berlisensi sendiri. Harga yang masuk lewat sini dianggap
+# lebih tepercaya daripada sumber tidak resmi, dan label sumbernya menyebut folder impor Anda.
+#
+# Salin ke: %LOCALAPPDATA%\MejaSaham\konfigurasi\harga-harian.csv
+# Jalankan: python -m mejasaham --impor "%LOCALAPPDATA%\MejaSaham\konfigurasi"
+#
+# ARTI KOLOM
+#   kode     Kode emiten TANPA akhiran .JK
+#   tanggal  YYYY-MM-DD
+#   open/high/low/close  Rupiah. Bilangan bulat (IDX memakai tick rupiah utuh). Bilangan
+#            berpecahan tetap diterima: angka aslinya disimpan di kolom audit dan yang
+#            berhitung adalah bagian bulatnya (T8) — bukan dibulatkan diam-diam.
+#   volume   Lembar, bilangan bulat.
+#   nilai    OPSIONAL. Nilai transaksi rupiah bila sumber Anda menerbitkannya. Bila kosong,
+#            aplikasi menghitung close x volume dan menandainya `hitung` (U6).
+#   penyesuaian_sumber  OPSIONAL, tetapi penting. Menyatakan apa yang SUDAH dilakukan sumber
+#            terhadap harga di baris itu:
+#              tidak_disesuaikan  harga apa adanya, split BELUM diterapkan
+#              split              harga sudah memakai basis pascasplit
+#              split_dividen      sudah disesuaikan split dan dividen
+#            Kosong = belum dinyatakan. Untuk baris yang kosong, aplikasi TIDAK menebak: bila
+#            emiten itu punya split yang relevan, metrik harganya berstatus "tidak dihitung"
+#            dengan alasan yang menyebut kolom ini. (Data dari --refresh selalu bertanda
+#            `split`, karena harga Yahoo sudah disesuaikan split — lihat docs/keputusan.md 1.5.)
+#   sumber   OPSIONAL. Nama sumber baris ini, bila berbeda dari label folder impor. Isi kolom
+#            ini bila berkas Anda memuat harga dari sumber lain (mis. pembanding): aplikasi
+#            memakainya untuk membandingkan penutupan 20 emiten ber-ADTV20 tertinggi terhadap
+#            sumber kedua (PRD 7.3) dan menandai selisih di atas 1%. Kosong = mengikuti label
+#            kumpulan seperti biasa.
+#
+# ATURAN
+#   * Kolom `open`..`volume` wajib ada; isinya boleh kosong. Kosong = "tidak ada datanya"
+#     (dilaporkan sebagai lubang di laporan mutu), BUKAN nol.
+#   * Nama kolom yang salah ketik DITOLAK.
+#   * Baris berawalan # diabaikan; baris contoh bertanda <<CONTOH>> tidak ikut terimpor.
+# =========================================================================================
+<<CONTOH>>;2026-01-02;1000;1050;990;1025;1000000;1025000000;tidak_disesuaikan;
